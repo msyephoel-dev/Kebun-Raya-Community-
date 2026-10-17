@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KRC - Komunitas Balap Roblox</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%231B5CFF'/%3E%3Cpath d='M7 7v10M7 12l6-5M7 12l6 5' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+<style>
+:root{--ink:#0A2342;--co:#1B5CFF;--cod:#1346CC;--sky:#E4EFFF;--foam:#F4F8FF;--line:#CFE0FA;--mu:#5A6F8F;--bad:#C62F3E;--ok:#138A5B;--fd:'Bricolage Grotesque',system-ui,sans-serif;--fb:'Figtree',system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;font-family:var(--fb);color:var(--ink);background:#fff;line-height:1.5}a{color:inherit}
+h1,h2,h3{font-family:var(--fd);margin:0;letter-spacing:-.02em;line-height:1.1}.wrap{max-width:1080px;margin:0 auto;padding:0 18px}:focus-visible{outline:3px solid #12B5E5;outline-offset:2px}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}.logo{display:flex;align-items:center;gap:9px;font:800 24px var(--fd);text-decoration:none}.logo svg{color:var(--co)}
+nav{display:flex;align-items:center;gap:4px}nav a,nav button.l{font:600 15px var(--fb);text-decoration:none;padding:9px 13px;border-radius:999px;background:none;border:0;cursor:pointer;color:var(--ink)}nav a:hover,nav button.l:hover{background:var(--sky)}
+.bg{display:none;width:44px;height:44px;border:1.5px solid var(--line);background:none;border-radius:12px;font-size:20px;cursor:pointer}
+@media(max-width:760px){.bg{display:block}nav{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;padding:8px 18px 14px;display:none}nav.o{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 16px var(--fb);background:var(--co);color:#fff;border:0;border-radius:999px;padding:14px 26px;cursor:pointer;text-decoration:none;box-shadow:0 8px 18px -8px rgba(27,92,255,.6)}
+.btn:hover{background:var(--cod)}.btn.ghost{background:#fff;color:var(--co);border:1.5px solid var(--line);box-shadow:none}.btn.sm{padding:8px 14px;font-size:13px;box-shadow:none}.btn.ok{background:var(--ok)}.btn.dn{background:#fff;color:var(--bad);border:1.5px solid #F2C4C9;box-shadow:none}.btn[disabled]{opacity:.55;cursor:wait}
+.hero{background:linear-gradient(180deg,var(--foam),#fff);padding:60px 0 50px;position:relative;overflow:hidden}.hero h1{font-size:clamp(38px,7.5vw,68px);font-weight:800;max-width:11em}.hero h1 em{font-style:normal;color:var(--co)}
+.hero p{color:var(--mu);font-size:18px;max-width:30em;margin:16px 0 26px}.hero .cta{display:flex;gap:10px;flex-wrap:wrap}.ring{position:absolute;right:-120px;top:-100px;width:440px;height:440px;border-radius:50%;border:56px solid var(--sky);opacity:.8}
+.gr{display:grid;gap:16px;padding:44px 0}@media(min-width:760px){.gr{grid-template-columns:repeat(3,1fr)}}
+.ft{border:1.5px solid var(--line);border-radius:24px;padding:22px;background:#fff}.ft i{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--co);color:#fff;font:800 18px var(--fd);font-style:normal;margin-bottom:12px}.ft h3{font-size:20px;margin-bottom:6px}.ft p{margin:0;color:var(--mu)}
+.pg{padding:32px 0 80px;background:var(--foam);min-height:75vh}.card{background:#fff;border:1.5px solid var(--line);border-radius:28px;padding:26px 22px;max-width:560px;margin:0 auto}.card h2{color:var(--co);text-align:center;font-size:30px;margin-bottom:6px}.sub{text-align:center;color:var(--mu);margin:0 0 20px}
+.f{margin-bottom:13px}.f label{display:block;font-weight:600;font-size:14px;margin:0 0 5px 4px}.f input,.f select,.f textarea{width:100%;border:1.5px solid var(--line);border-radius:18px;padding:13px 16px;font:500 16px var(--fb);color:var(--ink);background:#fff}.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f textarea:focus{border-color:var(--co);outline:0;box-shadow:0 0 0 4px rgba(27,92,255,.12)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips button{font:700 14px var(--fb);border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:9px 16px;border-radius:999px;cursor:pointer}.chips button.on{background:var(--co);color:#fff;border-color:var(--co)}
+.drop{display:block;border:2px dashed var(--line);border-radius:22px;padding:22px 14px;text-align:center;cursor:pointer;background:var(--foam);color:var(--mu)}.drop img{max-width:100%;max-height:220px;border-radius:14px;display:block;margin:0 auto 8px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--foam);border:1.5px solid var(--line);border-radius:999px;padding:4px;margin-bottom:18px}.tabs button{font:700 15px var(--fb);border:0;background:none;padding:10px;border-radius:999px;cursor:pointer;color:var(--mu)}.tabs button.on{background:var(--co);color:#fff}
+.demo{background:var(--sky);border-radius:16px;padding:12px 14px;font-size:14px;margin-top:14px}.demo code{background:#fff;padding:2px 7px;border-radius:8px}
+.stt{text-align:center;padding:10px 0}.spin{width:92px;height:92px;margin:6px auto 20px;border-radius:50%;border:8px solid var(--sky);border-top-color:var(--co);animation:sp 1s linear infinite;position:relative}
+.spin::after{content:'';position:absolute;inset:14px;border-radius:50%;border:6px solid var(--sky);border-bottom-color:#12B5E5;animation:sp 1.6s linear infinite reverse}@keyframes sp{to{transform:rotate(360deg)}}
+.dots span{display:inline-block;width:9px;height:9px;margin:0 3px;border-radius:50%;background:var(--co);animation:bn 1.2s infinite}.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}@keyframes bn{0%,80%,100%{transform:scale(.5);opacity:.4}40%{transform:scale(1);opacity:1}}
+.okc{width:100px;height:100px;margin:6px auto 16px}.okc circle{fill:none;stroke:var(--ok);stroke-width:6;stroke-dasharray:290;stroke-dashoffset:290;animation:dr .7s .1s forwards}.okc path{fill:none;stroke:var(--ok);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:dr .5s .7s forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.stt h3{font-size:26px;margin-bottom:6px}.stt p{color:var(--mu);margin:0 0 6px}.proof{max-width:100%;border-radius:18px;margin-top:14px;border:1.5px solid var(--line)}
+.sum{border:1.5px dashed var(--line);border-radius:18px;padding:14px;margin:18px 0;text-align:left;font-size:15px}.sum div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}.sum span:first-child{color:var(--mu)}
+.chip{border-radius:999px;padding:3px 11px;font-size:12px;font-weight:700;background:#FFF1C9;color:#8A6200;white-space:nowrap}.chip.done{background:#D5F3E5;color:#0C6B45}
+.tb{background:#fff;border:1.5px solid var(--line);border-radius:20px;overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:780px;font-size:14px}th{background:var(--sky);text-align:left;padding:11px 13px}td{padding:11px 13px;border-top:1px solid var(--line);vertical-align:middle}
+.sts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.sts div{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:14px}.sts span{font-size:13px;color:var(--mu)}.sts b{display:block;font:800 26px var(--fd)}
+.fl{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.fl button{font:700 14px var(--fb);border:1.5px solid var(--line);background:#fff;padding:8px 16px;border-radius:999px;cursor:pointer}.fl button.on{background:var(--co);color:#fff;border-color:var(--co)}
+.ib{display:flex;gap:6px}.ib button{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:16px}
+#mod{position:fixed;inset:0;z-index:50;background:rgba(10,35,66,.85);overflow:auto;padding:16px}.mb{background:#fff;border-radius:26px;max-width:600px;margin:0 auto;padding:22px;position:relative}.mb h2{font-size:26px;margin-bottom:12px}.mb img.pd{width:100%;border-radius:16px;margin:8px 0}
+.x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:var(--sky);cursor:pointer;font-size:16px}.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;font-size:15px}.kv b{color:var(--mu);font-weight:600}
+hr{border:0;border-top:1.5px dashed var(--line);margin:18px 0}
+footer{background:var(--ink);color:#B8CCEB;padding:28px 0;font-size:14px}footer .logo{color:#fff;margin-bottom:6px}
+#toasts{position:fixed;left:50%;transform:translateX(-50%);top:76px;z-index:80;display:grid;gap:8px;width:min(92vw,400px)}.toast{background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;font-weight:600}.toast.bad{background:var(--bad)}.toast.good{background:var(--ok)}
+@media(prefers-reduced-motion:reduce){.spin,.spin::after,.dots span{animation-duration:3s}}
+</style></head><body>
+<header><div class="wrap bar" id="hdr"></div></header><main id="app"></main>
+<footer><div class="wrap"><div class="logo" id="fl"></div>Komunitas balap Roblox. Bukan produk resmi Roblox Corp.</div></footer><div id="toasts" aria-live="polite"></div>
+<script>
+/* ===== ISI DENGAN DATA SUPABASE KAMU ===== */
+const CFG={URL:'https://idhvgluovguofetjpfuc.supabase.co',KEY:'sb_publishable_OTrVSDxe_bYvVn6urUEhgQ_0JKNJYcj'};
+const sb=(CFG.URL&&CFG.KEY&&window.supabase)?supabase.createClient(CFG.URL,CFG.KEY):null;
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fd=d=>new Date(d).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})+' WIB';
+const toast=(m,k='')=>{const t=document.createElement('div');t.className='toast '+k;t.textContent=m;$('#toasts').append(t);setTimeout(()=>t.remove(),3800)};
+const ck=r=>{if(r.error)throw new Error(r.error.message);return r.data};
+const LOGO='<svg width="32" height="32" viewBox="0 0 24 24"><rect width="24" height="24" rx="7" fill="currentColor"/><path d="M8 7v10M8 12l6-5M8 12l6 5" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>';
+const S={user:null,me:null,reg:false,flt:'all',tpl:{'Balap Selawe':'Saya memenangkan Balap Selawe. Mohon cek bukti podium dan kirim reward ke akun Roblox saya.','Balap Goceng':'Saya memenangkan Balap Goceng. Mohon cek bukti podium dan kirim reward ke akun Roblox saya.','Balap Robux':'Saya memenangkan Balap Robux. Mohon cek bukti podium dan kirim reward Robux ke akun Roblox saya.','Lainnya':''}};
+const app=$('#app'),isAdmin=()=>S.me&&S.me.role==='admin';
+let poll=null;
+const myIds=()=>{try{return JSON.parse(localStorage.getItem('krc_ids')||'[]')}catch(e){return[]}};
+const remember=id=>{try{localStorage.setItem('krc_ids',JSON.stringify([id,...myIds().filter(x=>x!==id)].slice(0,50)))}catch(e){}};
+const friendly=e=>/rate limit|too many/i.test(e.message)?'Batas pengiriman email Supabase tercapai. Matikan "Confirm email" di Supabase (Authentication > Providers > Email) atau coba lagi 1 jam lagi.':e.message;
+
+function chrome(){
+  const u=S.user;
+  $('#hdr').innerHTML=`<a class="logo" href="#/">${LOGO}KRC</a><button class="bg" id="bg" aria-label="Menu">☰</button><nav id="nv"><a href="#/">Beranda</a><a href="#/claim">Claim Reward</a><a href="#/klaim">Klaim Saya</a>${isAdmin()?'<a href="#/admin">Admin</a>':''}${u?'<button class="l" id="lo">Keluar</button>':'<a class="btn sm" href="#/login">Masuk</a>'}</nav>`;
+  $('#fl').innerHTML=LOGO+'KRC';
+  $('#bg').onclick=()=>$('#nv').classList.toggle('o');$$('#nv a').forEach(a=>a.onclick=()=>$('#nv').classList.remove('o'));
+  const lo=$('#lo');if(lo)lo.onclick=async()=>{await sb.auth.signOut();S.user=S.me=null;chrome();location.hash='#/';toast('Kamu sudah keluar')};
+}
+function route(){
+  clearInterval(poll);const p=(location.hash.slice(1).split('?')[0]||'/').split('/').filter(Boolean);window.scrollTo(0,0);
+  const m={'':home,claim:claim,klaim:mine,status:()=>status(p[1]),login:auth,admin:admin};
+  (m[p[0]||'']||home)().catch(e=>{app.innerHTML=`<div class="pg"><div class="wrap"><div class="card"><h2>Terjadi kesalahan</h2><p class="sub">${esc(e.message)}</p></div></div></div>`});
+}
+
+/* ---------- beranda ---------- */
+async function home(){
+  app.innerHTML=`<section class="hero"><div class="ring"></div><div class="wrap" style="position:relative"><h1>Menang balap? <em>Klaim rewardmu</em> di sini.</h1><p>Komunitas balap Roblox KRC. Isi form, unggah foto podium, dan pantau status rewardmu sampai terkirim.</p><div class="cta"><a class="btn" href="#/claim">Claim Reward Balap</a><a class="btn ghost" href="#/klaim">Status klaimku</a></div></div></section>
+  <div class="wrap"><div class="gr"><div class="ft"><i>1</i><h3>Isi form klaim</h3><p>Nama, username Roblox, ID Discord, dan jenis balap yang kamu menangkan.</p></div><div class="ft"><i>2</i><h3>Unggah foto podium</h3><p>Bukti kemenangan saat kamu berdiri di podium.</p></div><div class="ft"><i>3</i><h3>Terima reward</h3><p>Admin memproses maksimal 1×24 jam, lengkap dengan bukti pengiriman.</p></div></div></div>`;
+}
+
+/* ---------- form klaim ---------- */
+async function shrink(file,max,q){const b=await createImageBitmap(file,{imageOrientation:'from-image'});const r=Math.min(1,max/Math.max(b.width,b.height)),w=Math.round(b.width*r),h=Math.round(b.height*r);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(b,0,0,w,h);return new Promise(res=>c.toBlob(res,'image/webp',q))}
+async function putFile(folder,blob){const path=`${S.user?S.user.id:'guest'}/${folder}-${Date.now()}-${Math.random().toString(36).slice(2,7)}.webp`;ck(await sb.storage.from('claims').upload(path,blob,{contentType:'image/webp',cacheControl:'31536000'}));return{path,url:sb.storage.from('claims').getPublicUrl(path).data.publicUrl}}
+function picker(id){ // pemilih foto dengan preview
+  const el=$(id);let file=null;const inp=$('input',el);
+  inp.onchange=()=>{const f=inp.files[0];if(!f)return;if(!/^image\/(jpeg|png|webp)$/.test(f.type)||f.size>15*1048576){inp.value='';return toast('Gunakan JPG/PNG/WEBP maksimal 15 MB','bad')}file=f;el.innerHTML=`<img src="${URL.createObjectURL(f)}" alt="Pratinjau"><small>Ketuk untuk ganti foto</small>`;el.append(inp)};
+  return()=>file;
+}
+async function claim(){
+  app.innerHTML=`<div class="pg"><div class="wrap"><div class="card"><h2>Claim Reward Balap</h2><p class="sub">Lengkapi data di bawah dengan benar.</p>
+  <div class="f"><label>Nama</label><input id="nm" maxlength="60" value="${esc(S.me?.display_name||'')}"></div>
+  <div class="f"><label>Username Roblox</label><input id="rb" maxlength="30" placeholder="@username" autocapitalize="off"></div>
+  <div class="f"><label>ID Discord</label><input id="dc" maxlength="40" placeholder="contoh: namakamu"></div>
+  <div class="f"><label>Jenis balap</label><div class="chips" id="ch">${Object.keys(S.tpl).map(k=>`<button type="button">${k}</button>`).join('')}</div></div>
+  <div class="f"><label>Keterangan</label><textarea id="nt" maxlength="500" placeholder="Pilih jenis balap untuk mengisi template otomatis"></textarea></div>
+  <div class="f"><label>Foto kemenangan di podium</label><label class="drop" id="pd">📷 Ketuk untuk pilih foto podium<input type="file" accept="image/jpeg,image/png,image/webp" hidden></label></div>
+  <button class="btn" id="go" style="width:100%">Kirim Klaim</button></div></div></div>`;
+  let cat='';const get=picker('#pd');
+  $$('#ch button').forEach(b=>b.onclick=()=>{cat=b.textContent;$$('#ch button').forEach(x=>x.classList.toggle('on',x===b));$('#nt').value=S.tpl[cat];$('#nt').focus()});
+  $('#go').onclick=async()=>{
+    const v=id=>$(id).value.trim(),f=get();
+    if(!v('#nm')||!v('#rb')||!v('#dc'))return toast('Nama, username Roblox, dan ID Discord wajib diisi','bad');
+    if(!cat)return toast('Pilih jenis balap','bad');if(!v('#nt'))return toast('Keterangan wajib diisi','bad');if(!f)return toast('Foto podium wajib diunggah','bad');
+    const b=$('#go');b.disabled=true;b.textContent='Mengirim...';
+    try{const up=await putFile('podium',await shrink(f,1600,.82));
+      const rid=ck(await sb.rpc('create_claim',{p_name:v('#nm'),p_roblox:v('#rb'),p_discord:v('#dc'),p_category:cat,p_note:v('#nt'),p_podium_url:up.url,p_podium_path:up.path}));remember(rid);
+      sb.functions.invoke('notify-claim',{body:{id:rid}}).catch(()=>{});
+      location.hash='#/status/'+rid;
+    }catch(e){toast('Gagal mengirim: '+e.message,'bad');b.disabled=false;b.textContent='Kirim Klaim'}
+  };
+}
+
+/* ---------- status ---------- */
+async function status(id){
+  let last='';
+  const draw=async()=>{
+    const c=ck(await sb.rpc('get_claim',{p_id:id}));
+    if(!c){app.innerHTML='<div class="pg"><div class="wrap"><div class="card"><h2>Klaim tidak ditemukan</h2></div></div></div>';return}
+    const key=c.status+(c.proof_url||'');if(key===last)return;const prev=last;last=key;if(prev)toast('Status klaim diperbarui','good');
+    const done=c.status==='done';
+    app.innerHTML=`<div class="pg"><div class="wrap"><div class="card"><div class="stt">${done?
+      `<svg class="okc" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><path d="M30 52l14 14 27-30"/></svg><h3>Pengiriman Reward Successfull</h3><p>Selamat! Reward ${esc(c.category)} sudah dikirim${c.done_at?' pada '+fd(c.done_at):''}.</p>`:
+      `<div class="spin" role="status" aria-label="Menunggu"></div><h3>Mohon menunggu</h3><p>Klaimmu sedang diproses, kurang lebih 1×24 jam.</p><div class="dots"><span></span><span></span><span></span></div>`}</div>
+      <div class="sum"><div><span>Waktu kirim</span><span>${fd(c.created_at)}</span></div><div><span>Nama</span><span>${esc(c.name)}</span></div><div><span>Roblox</span><span>${esc(c.roblox)}</span></div><div><span>Discord</span><span>${esc(c.discord)}</span></div><div><span>Jenis</span><span>${esc(c.category)}</span></div><div><span>Status</span><span class="chip ${c.status}">${done?'Selesai':'Menunggu'}</span></div></div>
+      ${done&&c.proof_url?`<b>Bukti pengiriman</b>${c.admin_note?`<p style="margin:4px 0">${esc(c.admin_note)}</p>`:''}<img class="proof" src="${esc(c.proof_url)}" alt="Bukti pengiriman reward">`:''}
+      <p class="sub" style="margin-top:14px;font-size:14px">Simpan tautan halaman ini untuk memantau statusmu kapan saja. Halaman diperbarui otomatis.</p>
+      <a class="btn ghost" style="width:100%" href="#/klaim">Semua klaimku</a></div></div></div>`;
+  };
+  await draw();poll=setInterval(()=>draw().catch(()=>{}),5000);
+}
+async function mine(){
+  let rows=[];if(S.user)rows=ck(await sb.from('claims').select('id,category,status,created_at').eq('user_id',S.user.id));
+  const have=new Set(rows.map(r=>r.id));
+  const extra=await Promise.all(myIds().filter(i=>!have.has(i)).map(async i=>{try{return ck(await sb.rpc('get_claim',{p_id:i}))}catch(e){return null}}));
+  const l=[...rows,...extra.filter(Boolean)].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  app.innerHTML=`<div class="pg"><div class="wrap"><h1 style="font-size:32px;margin-bottom:6px">Klaim Saya</h1>${S.user?'':'<p class="sub" style="text-align:left;margin-bottom:14px">Menampilkan klaim dari perangkat ini. <a href="#/login">Masuk</a> agar tersimpan di semua perangkat.</p>'}<div class="tb"><table style="min-width:420px"><thead><tr><th>Waktu</th><th>Jenis</th><th>Status</th><th></th></tr></thead><tbody>${l.map(c=>`<tr><td>${fd(c.created_at)}</td><td>${esc(c.category)}</td><td><span class="chip ${c.status}">${c.status==='done'?'Selesai':'Menunggu'}</span></td><td><a href="#/status/${c.id}">Lihat</a></td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center;color:var(--mu)">Belum ada klaim</td></tr>'}</tbody></table></div></div></div>`;
+}
+
+/* ---------- login ---------- */
+async function auth(){
+  if(S.user)return location.hash='#/';const r=S.reg;
+  app.innerHTML=`<div class="pg"><div class="wrap"><div class="card"><h2>${r?'Buat Akun':'Masuk'}</h2><p class="sub">Akun bersifat opsional. Kamu tetap bisa klaim reward tanpa login.</p><div class="tabs"><button data-r="0" class="${r?'':'on'}">Masuk</button><button data-r="1" class="${r?'on':''}">Daftar</button></div>
+  ${r?'<div class="f"><label>Nama</label><input id="un" maxlength="40"></div>':''}<div class="f"><label>Email</label><input id="em" type="email" autocomplete="email"></div><div class="f"><label>Password (min. 6)</label><input id="pw" type="password" autocomplete="${r?'new-password':'current-password'}"></div>
+  <button class="btn" id="go" style="width:100%">${r?'Daftar':'Masuk'}</button><div class="demo"><b>Akun demo admin</b><br>Email: <code>admin@krc-community.com</code><br>Password: <code>admin123</code><br><small>Daftarkan dulu lewat tab Daftar.</small></div></div></div></div>`;
+  $$('.tabs button').forEach(b=>b.onclick=()=>{S.reg=b.dataset.r==='1';auth()});
+  const go=async()=>{const em=$('#em').value.trim(),pw=$('#pw').value;if(!em||pw.length<6)return toast('Isi email dan password (min. 6)','bad');
+    try{if(r){const n=$('#un').value.trim();if(!n)return toast('Nama wajib diisi','bad');const d=ck(await sb.auth.signUp({email:em,password:pw,options:{data:{name:n}}}));if(!d.session){toast('Cek email untuk konfirmasi, lalu masuk','good');S.reg=false;return auth()}}
+    else ck(await sb.auth.signInWithPassword({email:em,password:pw}));
+    await loadUser();chrome();toast('Selamat datang!','good');location.hash=isAdmin()?'#/admin':'#/claim'}catch(e){toast(friendly(e),'bad')}};
+  $('#go').onclick=go;$('#pw').onkeydown=e=>{if(e.key==='Enter')go()};
+}
+
+/* ---------- admin ---------- */
+async function admin(){
+  if(!isAdmin()){app.innerHTML='<div class="pg"><div class="wrap"><div class="card"><h2>Akses ditolak</h2><p class="sub">Halaman khusus admin.</p></div></div></div>';return}
+  const all=ck(await sb.from('claims').select('*').order('created_at',{ascending:false}).limit(500));S.all=all;
+  const l=all.filter(c=>S.flt==='all'||c.status===S.flt);
+  app.innerHTML=`<div class="pg"><div class="wrap"><h1 style="font-size:32px">Dashboard Admin</h1><div class="sts"><div><span>Menunggu</span><b>${all.filter(c=>c.status==='pending').length}</b></div><div><span>Selesai</span><b>${all.filter(c=>c.status==='done').length}</b></div><div><span>Total klaim</span><b>${all.length}</b></div></div>
+  <div class="fl">${[['all','Semua'],['pending','Menunggu'],['done','Selesai']].map(([k,t])=>`<button data-f="${k}" class="${S.flt===k?'on':''}">${t}</button>`).join('')}</div>
+  <div class="tb"><table><thead><tr><th>Tanggal &amp; waktu</th><th>Nama</th><th>Roblox</th><th>Discord</th><th>Jenis</th><th>Status</th><th></th></tr></thead><tbody>${l.map(c=>`<tr><td>${fd(c.created_at)}</td><td>${esc(c.name)}</td><td>${esc(c.roblox)}</td><td>${esc(c.discord)}</td><td>${esc(c.category)}</td><td><span class="chip ${c.status}">${c.status==='done'?'Selesai':'Menunggu'}</span></td>
+  <td><div class="ib"><button data-e="${c.id}" aria-label="Edit klaim ${esc(c.name)}">✏️</button><button data-d="${c.id}" aria-label="Hapus klaim ${esc(c.name)}">🗑️</button></div></td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--mu);padding:30px">Belum ada klaim</td></tr>'}</tbody></table></div></div></div>`;
+  $$('.fl button').forEach(b=>b.onclick=()=>{S.flt=b.dataset.f;admin()});
+  $$('[data-e]').forEach(b=>b.onclick=()=>editor(S.all.find(c=>c.id===b.dataset.e)));
+  $$('[data-d]').forEach(b=>b.onclick=async()=>{const c=S.all.find(x=>x.id===b.dataset.d);if(!confirm('Hapus klaim '+c.name+' permanen?'))return;
+    try{await sb.storage.from('claims').remove([c.podium_path,c.proof_path].filter(Boolean));ck(await sb.from('claims').delete().eq('id',c.id));toast('Klaim dihapus');admin()}catch(e){toast(e.message,'bad')}});
+}
+function editor(c){
+  const m=document.createElement('div');m.id='mod';document.body.style.overflow='hidden';
+  const done=c.status==='done';
+  m.innerHTML=`<div class="mb"><button class="x" id="xc" aria-label="Tutup">✕</button><h2>Detail Klaim</h2>
+  <div class="kv"><b>Dikirim</b><span>${fd(c.created_at)}</span><b>Nama</b><span>${esc(c.name)}</span><b>Roblox</b><span>${esc(c.roblox)}</span><b>Discord</b><span>${esc(c.discord)}</span><b>Jenis</b><span>${esc(c.category)}</span><b>Status</b><span><span class="chip ${c.status}">${done?'Selesai':'Menunggu'}</span></span><b>Keterangan</b><span>${esc(c.note)}</span></div>
+  <p style="margin:14px 0 0"><b>Foto podium</b></p><a href="${esc(c.podium_url)}" target="_blank" rel="noopener"><img class="pd" src="${esc(c.podium_url)}" alt="Foto podium"></a><hr>
+  <h3 style="font-size:20px;margin-bottom:10px">Penyelesaian</h3>
+  <div class="f"><label>Catatan untuk member (opsional)</label><textarea id="an">${esc(c.admin_note||'')}</textarea></div>
+  <div class="f"><label>Foto bukti pengiriman reward</label><label class="drop" id="pf">${c.proof_url?`<img src="${esc(c.proof_url)}" alt="Bukti"><small>Ketuk untuk ganti</small>`:'📷 Ketuk untuk pilih foto bukti'}<input type="file" accept="image/jpeg,image/png,image/webp" hidden></label></div>
+  <button class="btn ok" id="fin" style="width:100%">SELESAI</button>${done?'<button class="btn ghost" id="re" style="width:100%;margin-top:8px">Kembalikan ke Menunggu</button>':''}</div>`;
+  document.body.append(m);const get=picker('#pf');
+  const close=()=>{m.remove();document.body.style.overflow=''};$('#xc').onclick=close;m.onclick=e=>{if(e.target===m)close()};
+  $('#fin').onclick=async()=>{const f=get();if(!f&&!c.proof_url)return toast('Unggah foto bukti pengiriman dulu','bad');
+    const b=$('#fin');b.disabled=true;b.textContent='Menyimpan...';
+    try{const u={status:'done',admin_note:$('#an').value.trim(),done_at:new Date().toISOString()};
+      if(f){const up=await putFile('proof',await shrink(f,1600,.82));u.proof_url=up.url;u.proof_path=up.path;if(c.proof_path)sb.storage.from('claims').remove([c.proof_path])}
+      ck(await sb.from('claims').update(u).eq('id',c.id));toast('Klaim diselesaikan','good');close();admin()}
+    catch(e){toast(e.message,'bad');b.disabled=false;b.textContent='SELESAI'}};
+  const re=$('#re');if(re)re.onclick=async()=>{try{ck(await sb.from('claims').update({status:'pending',done_at:null}).eq('id',c.id));close();admin()}catch(e){toast(e.message,'bad')}};
+}
+
+/* ---------- init ---------- */
+async function loadUser(){const {data:{session}}=await sb.auth.getSession();S.user=session?session.user:null;S.me=S.user?ck(await sb.from('profiles').select('*').eq('id',S.user.id).maybeSingle()):null}
+(async function(){
+  if(!sb){chrome();app.innerHTML='<div class="pg"><div class="wrap"><div class="card"><h2>Hubungkan Supabase</h2><p>Isi <code>CFG.URL</code> dan <code>CFG.KEY</code> di bagian script file ini, lalu muat ulang.</p></div></div></div>';return}
+  try{await loadUser()}catch(e){}
+  chrome();
+  sb.channel('admin-claims').on('postgres_changes',{event:'INSERT',schema:'public',table:'claims'},p=>{if(isAdmin()){toast('Klaim baru dari '+p.new.name,'good');if(location.hash.startsWith('#/admin'))admin()}}).subscribe();
+  window.addEventListener('hashchange',route);route();
+})();
+</script></body></html>
